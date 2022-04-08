@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="name_request.jsp" method="get">
+<form action="name_request.jsp" method="post">
 	<div>
 		<label>이름</label>
 		<input type="text" name="username" id="username" required="required"/>
