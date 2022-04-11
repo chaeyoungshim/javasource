@@ -20,6 +20,8 @@ local.properties
 Servers/
 MANIFEST.MF
 
+bootstrap-4.6.1-dist/
+
 # External tool builders
 .externalToolBuilders/
 
