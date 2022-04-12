@@ -19,8 +19,8 @@ local.properties
 
 Servers/
 MANIFEST.MF
-
 bootstrap-4.6.1-dist/
+jquery-3.6.0.min.js
 
 # External tool builders
 .externalToolBuilders/
