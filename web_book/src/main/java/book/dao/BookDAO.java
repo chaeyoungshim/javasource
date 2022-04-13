@@ -119,8 +119,49 @@ public class BookDAO {
 	}
 	
 	
-	
-	
+	//검색
+	//select * from bootTBL where code=1001;
+	//select * from bookTBL where writer writer='%길동%';
+	public List<BookDTO> searchList(String criteria,String keyword) { //값이 여러개일 수 있기에 리스트로 담아서 보내주기
+		List<BookDTO> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "";
+		
+		try {
+			if(criteria.equals("code")) {
+				sql = "select * from bookTBL where code=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(keyword));
+			}else {
+				sql = "select * from bookTBL where writer like ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%"+keyword+"%");
+			}
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BookDTO dto = new BookDTO(); //객체 생성
+				dto.setCode(rs.getInt("code"));
+				dto.setTitle(rs.getString("title"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setPrice(rs.getInt("price"));
+				
+				list.add(dto); //list에 dto 객체들 담기
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
 	
 	
 	
