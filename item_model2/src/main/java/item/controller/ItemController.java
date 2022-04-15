@@ -1,4 +1,4 @@
-package book.controller;
+package item.controller;
 
 import java.io.IOException;
 
@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import book.action.Action;
-import book.action.ActionForward;
-import book.action.BookActionFactory;
+import item.action.Action;
+import item.action.ActionForward;
+import item.action.ItemActionFactory;
 
 
 @WebServlet("*.do")
-public class BookController extends HttpServlet {
+public class ItemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,10 +23,10 @@ public class BookController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		//requestUri 확인
-		String cmd = request.getRequestURI();
+		String cmd = request.getRequestURI(); //무슨 .do 인지 주소 갖고오기
 		
 		//Action 생성 => BookActionFactory 이용
-		BookActionFactory baf = BookActionFactory.getInstance();
+		ItemActionFactory baf = ItemActionFactory.getInstance(); //객체 생성
 		Action action = baf.action(cmd);
 		
 		//생성된 action에게 요청 넘기기
