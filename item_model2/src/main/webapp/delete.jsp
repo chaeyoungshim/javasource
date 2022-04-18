@@ -2,14 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/layout/header.jsp" %>
 <%-- 화면 위치 --%>
-<h1>도서 정보 삭제</h1>
-
-<p>삭제할 도서의 코드 번호를 입력하세요</p>
+<h1>제품 정보 삭제</h1>
+<p>삭제할 제품 번호를 입력하세요</p>
 <form action="/delete.do" method="post">
 	<div class="form-group row">
-		<label for="code" class="col-sm-2 col-form-label">Code</label>
+		<label for="num" class="col-sm-2 col-form-label">Num</label>
 		<div class="col-sm-8">
-			<input type="text" name="code" id="code" class="form-control"/>
+			<input type="text" name="num" id="num" class="form-control"/>
 		</div>
 	</div>
 	<div class="form-group row">

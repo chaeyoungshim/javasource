@@ -5,15 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import item.dto.ItemDTO;
 import item.service.ItemInsertService;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class ItemInsertAction implements Action {
 	
 	private String path;
-
-	public ItemInsertAction(String path) {
-		super();
-		this.path = path;
-	}
 	
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -22,6 +22,12 @@ public class ItemActionFactory {
 			action = new ItemListAction("/list.jsp"); //성공 시 리스트 화면 보여주기
 		}else if(cmd.equals("/insert.do")) {
 			action = new ItemInsertAction("/list.do");
+		}else if(cmd.equals("/delete.do")) {
+			action = new ItemDeleteAction("/list.do");
+		}else if(cmd.equals("/update.do")) {
+			action = new ItemUpdateAction("/list.do");
+		}else if(cmd.equals("/search.do")) {
+			action = new ItemSearchAction("/list.jsp");
 		}
 		
 		return action;

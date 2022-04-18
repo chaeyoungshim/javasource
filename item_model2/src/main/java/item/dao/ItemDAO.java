@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import item.dto.ItemDTO;
-
+import static item.dao.JdbcUtil.*;
 public class ItemDAO {
 	private Connection con;
 
@@ -43,8 +43,8 @@ public class ItemDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
+			close(rs);
+			close(pstmt);
 		}
 		
 		return list;
@@ -72,10 +72,89 @@ public class ItemDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			JdbcUtil.close(pstmt);
+			close(pstmt);
 		}
 		
 		return flag; //성공/실패 알려주는 기능
+	}
+	
+	//삭제하기
+	public boolean delete(int num) {
+		
+		PreparedStatement pstmt = null;
+		String sql = "delete from item where num=?";
+		boolean flag = false;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			int result = pstmt.executeUpdate();
+			
+			if(result>0) flag = true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return flag;
+	}
+	
+	
+	public boolean update(int num, String psize, int price) {
+		PreparedStatement pstmt = null;
+		String sql = "update item set psize=?,price=? where num=?";
+		boolean flag = false;
+		try {
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, psize);
+			pstmt.setInt(2, price);
+			pstmt.setInt(3, num);
+			
+			int result = pstmt.executeUpdate(); //숫자로 실행결과 알려주니까 boolean이 아니라 int로
+			
+			if(result>0) flag = true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return flag;
+	}
+	
+	
+	public List<ItemDTO> serachList(String category,String name) {
+		List<ItemDTO> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select num,category,name,psize,price,register_at from item where category=? and name=?";
+		try {
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.setString(2, name);
+			rs = pstmt.executeQuery(); //select 니까
+			
+			while(rs.next()) {
+				ItemDTO itemDto = new ItemDTO();
+				itemDto.setNum(rs.getInt("num"));
+				itemDto.setCategory(rs.getString("category"));
+				itemDto.setName(rs.getString("name"));
+				itemDto.setPsize(rs.getString("psize"));
+				itemDto.setRegisterAt(rs.getDate("register_at"));
+				
+				list.add(itemDto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	
