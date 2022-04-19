@@ -5,3 +5,7 @@
   color: #fff;
   background-color: red;  
 } */
+span.error{
+	color:red;
+	font-size:0.8em;
+}

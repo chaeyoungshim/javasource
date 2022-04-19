@@ -26,7 +26,7 @@
 			<c:forEach var="dto" items="${list}">
 				<tr><!-- 리스트 목록 보여주기 -->
 					<td class='text-center'>${dto.bno}</td><!--번호-->
-					<td>${dto.title}</td><!--제목-->
+					<td><a href="/qHitUpdate.do?bno=${dto.bno}">${dto.title}</a></td><!--제목-->
 					<td class='text-center'>${dto.name}</td><!--작성자-->
 					<td class='text-center'>${dto.regDate}</td><!--날짜-->
 					<td class='text-center'><span class="badge badge-pill badge-primary">${dto.readCount}</span></td>
