@@ -32,6 +32,12 @@ public class BoardActionFactory {
 			action = new BoardViewAction("/view/qna_board_modify.jsp");
 		}else if(cmd.equals("/qUpdate.do")) {
 			action = new BoardUpdateAction("/qView.do");
+		}else if(cmd.equals("/qReplyView.do")) {
+			action = new BoardViewAction("/view/qna_board_reply.jsp");
+		}else if(cmd.equals("/qReply.do")) {
+			action = new BoardReplyAction("/qList.do");
+		}else if(cmd.equals("/qSearch.do")) {
+			action = new BoardSearchAction("/view/qna_board_list.jsp");
 		}
 		
 		return action;

@@ -22,4 +22,10 @@ $(function(){
 		//submit
 		formObj.submit();
 	})
+	$("#reply").click(function(){
+		//폼 action 지정
+		formObj.attr("action","/qReplyView.do");
+		//submit
+		formObj.submit();
+	})
 })

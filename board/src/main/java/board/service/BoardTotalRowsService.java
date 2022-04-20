@@ -5,17 +5,16 @@ import static board.dao.JdbcUtil.*;
 import java.sql.Connection;
 
 import board.dao.BoardDAO;
-import board.dto.BoardDTO;
 
-public class BoardViewService {
-	public BoardDTO read(int bno) {
+public class BoardTotalRowsService {
+	public int total() {
 		Connection con = getConnection();
-		
 		BoardDAO dao = new BoardDAO(con);
-		BoardDTO dto = dao.getRow(bno); //원보글에 대한 정보가 담겨있음
+		
+		int totalRows = dao.totalRows();
 		
 		close(con);
 		
-		return dto;
+		return totalRows;
 	}
 }

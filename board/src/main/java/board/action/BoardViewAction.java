@@ -21,12 +21,12 @@ public class BoardViewAction implements Action {
 		
 		//서비스 작업
 		BoardViewService service = new BoardViewService();
-		BoardDTO dto = service.read(bno);
+		BoardDTO dto = service.read(bno); //원본에 대한 정보 담겨져있음
 		
-		request.setAttribute("dto", dto);
+		request.setAttribute("dto", dto); //이 정보를 담아서 페이지 이동
 		
 		//페이지 이동
-		return new ActionForward(path, false);
+		return new ActionForward(path, false); //setAttribute이기 때문에
 	}
 
 }
