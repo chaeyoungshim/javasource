@@ -1,7 +1,9 @@
 package board.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@AllArgsConstructor
 @Data  //allargs 빼고 다 만들어줌
 public class SearchDTO {
 	private String criteria;

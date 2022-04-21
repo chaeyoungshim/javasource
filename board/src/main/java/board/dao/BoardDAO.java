@@ -53,29 +53,43 @@ public class BoardDAO {
 		List<BoardDTO> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		//select bno,title,name,regdate,readcount from board order by desc, Error Msg = ORA-00936: missing expression
+		String sql = "";
 		//String sql = "select bno,title,name,regdate,readcount,re_ref,re_seq,re_lev from board order by re_ref desc, re_seq asc";      
 		
-		String sql = "select * from (select rownum as rnum, A.* ";
+		try {
+			
+			int start = searchDto.getPage() * searchDto.getAmount();
+			int end = (searchDto.getPage()-1) * searchDto.getAmount();
+			
+			//리스트 요청
+			if(searchDto.getCriteria().isEmpty()) {
+				sql = "select * from (select rownum as rnum, A.* ";
 				sql += " from (select bno, title, name, regdate, readcount, re_ref, re_lev, re_seq ";
 				sql	+= " from board ";
 				sql	+= " where bno > 0 order by re_ref desc, re_seq asc) A ";
 				sql	+= " where rownum <= ?) ";
 				sql	+= " where rnum > ?";
-		
-		int start = searchDto.getPage() * searchDto.getAmount();
-		int end = (searchDto.getPage()-1) * searchDto.getAmount();
-		
-		
-		try {
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);
+				
+			}else {
+				//검색 요청
+				sql = "select * from (select rownum as rnum, A.* ";
+				sql += " from (select bno, title, name, regdate, readcount, re_ref, re_lev, re_seq ";
+				sql	+= " from board ";
+				sql	+= " where bno > 0 and " + searchDto.getCriteria() + " like ? order by re_ref desc, re_seq asc) A ";
+				sql	+= " where rownum <= ?) ";
+				sql	+= " where rnum > ?";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%"+searchDto.getKeyword()+"%");
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+			}
 			
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
 			rs = pstmt.executeQuery(); //select 니까 	executeQuery();
-			
-			
 			while(rs.next()) { //값이 없을 때 그만, 값이 여러개일 것이므로 while문으로
 				BoardDTO dto = new BoardDTO(); //객체 생성 후 집어넣기
 				dto.setBno(rs.getInt("bno"));
@@ -100,13 +114,24 @@ public class BoardDAO {
 	}
 	
 	//전체 게시물 개수
-	public int totalRows() {
+	public int totalRows(String criteria, String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rs=  null;
-		String sql = "select count(*) from board";
+		String sql = "";
+				
 		int total = 0;
 		try {
-			pstmt = con.prepareStatement(sql);
+			
+			if(criteria.isEmpty()) {
+				sql = "select count(*) from board";
+				pstmt = con.prepareStatement(sql);
+			}else {
+				sql = "select count(*) from board where " +criteria + " like ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%"+keyword+"%");
+
+			}
+			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {

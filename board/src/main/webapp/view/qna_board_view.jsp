@@ -51,8 +51,13 @@
 		</form>
 	</div>
 </section>
-<form action="" method="post" id="actionForm">
+<form action="" method="get" id="actionForm">
 	<input type="hidden" name="bno" value="${dto.bno}" />
+	<!-- 페이지 나누기 후 추가 -->
+	<input type="hidden" name="page" value="${searchDto.page}" />
+	<input type="hidden" name="amount" value="${searchDto.amount}" />
+	<input type="hidden" name="criteria" value="${searchDto.criteria}" />
+	<input type="hidden" name="keyword" value="${searchDto.keyword}" />
 </form>
 <script src="/js/view.js"></script>
 <%@include file="../include/footer.jsp"%>

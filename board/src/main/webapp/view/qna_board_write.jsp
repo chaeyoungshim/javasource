@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@include file="../include/header.jsp"%>
 <!-- Main content -->
+<% request.setCharacterEncoding("utf-8"); %>
 <section class="content">
   <div class="box box-primary">
     <div class="box-header">
@@ -78,13 +79,39 @@ pageEncoding="UTF-8"%> <%@include file="../include/header.jsp"%>
         </div>
         <div style="height:20px"></div>
       </div>
+      <!-- 페이지 나누기 후 추가 -->
+      <input type="hidden" name="page" value="1" /> <!-- 페이지는 1로 설정, 앞에 페이지 보여주면 되니까 -->
+	  <input type="hidden" name="amount" value="<%= request.getParameter("amount") %>" />
+	  <input type="hidden" name="criteria" value="" />
+	  <input type="hidden" name="keyword" value="" />
     </form>
   </div>
   <!-- /.box -->
 </section>
+<form action="/qList.do" id="actionForm">
+	 <input type="hidden" name="page" value="<%= request.getParameter("page") %>" />
+	 <input type="hidden" name="amount" value="<%= request.getParameter("amount") %>" />
+	 <input type="hidden" name="criteria" value="<%= request.getParameter("criteria") %>" />
+	 <input type="hidden" name="keyword" value="<%= request.getParameter("keyword") %>" />
+</form>
 <script src="/js/write.js"></script>
 <%-- write form validate --%>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
 <script src="/js/write_validate.js"></script>
 <%@include file="../include/footer.jsp"%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

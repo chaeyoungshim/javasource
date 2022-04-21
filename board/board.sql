@@ -155,7 +155,7 @@ where rnum > 0;
 
 -- 2 page => start : 페이지 번호 * 한 페이지 당 보여줄 게시물 수 / end : (페이지 번호-1) * 한 페이지 당 보여줄 게시물 수
 -- start = 2 * 10, end = (2-1) * 10
-
+-- 검색어가 안 들어오면
 select bno, title, name, regdate, readcount, re_ref, re_lev, re_seq
 from (select rownum as rnum, bno, title, name, regdate, readcount, re_ref, re_lev, re_seq
 	  from (select bno, title, name, regdate, readcount, re_ref, re_lev, re_seq 
@@ -163,6 +163,29 @@ from (select rownum as rnum, bno, title, name, regdate, readcount, re_ref, re_le
 	  		where bno > 0 order by re_ref desc, re_seq asc) 
 	  where rownum <= 20)
 where rnum > 10;
+
+
+-- 검색어가 들어오면
+select bno, title, name, regdate, readcount, re_ref, re_lev, re_seq
+from (select rownum as rnum, bno, title, name, regdate, readcount, re_ref, re_lev, re_seq
+	  from (select bno, title, name, regdate, readcount, re_ref, re_lev, re_seq 
+	  		from board 
+	  		where bno > 0 and title like '%사진%' order by re_ref desc, re_seq asc) 
+	  where rownum <= 10)
+where rnum > 0;
+
+-- 검색어를 넣었을 때 총 게시물 개수
+select count(*) from board where title like '%사진%';
+
+
+
+
+
+
+
+
+
+
 
 
 

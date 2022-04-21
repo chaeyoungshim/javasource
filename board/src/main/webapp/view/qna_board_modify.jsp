@@ -53,6 +53,11 @@
 				<div style="height:20px"></div>
 			</div>
 			<input type="hidden" name="bno" value="${dto.bno}"/> <!-- 이렇게 담아놔야 모든 내용과 숨겨진 bno가 서버로 전달됨 -->
+			<!-- 페이지 나누기 후 추가 -->
+			<input type="hidden" name="page" value="${searchDto.page}" />
+			<input type="hidden" name="amount" value="${searchDto.amount}" />
+			<input type="hidden" name="criteria" value="${searchDto.criteria}" />
+			<input type="hidden" name="keyword" value="${searchDto.keyword}" />
 		</form>
 	</div>
 </section>

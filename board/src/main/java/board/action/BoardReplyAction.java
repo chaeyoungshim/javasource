@@ -1,5 +1,7 @@
 package board.action;
 
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,10 +31,19 @@ public class BoardReplyAction implements Action {
 		replyDto.setReSeq(Integer.parseInt(request.getParameter("re_seq")));
 		replyDto.setReRef(Integer.parseInt(request.getParameter("re_ref")));
 		
+		//페이지 나누기
+		String page = request.getParameter("page");
+		String amount = request.getParameter("amount");
+		String criteria = request.getParameter("criteria");
+		String keyword = URLEncoder.encode(request.getParameter("keyword"),"utf-8");
+		
+		
 		BoardReplyService service = new BoardReplyService();
 		
 		if(!service.reply(replyDto)) {
-			path = "/qReplyView.do?bno="+bno;
+			path = "/qReplyView.do?bno="+bno+"&page="+page+"&amount="+amount+"&criteria="+criteria+"&keyword="+keyword;
+		}else {
+			path += "?page="+page+"&amount="+amount+"&criteria="+criteria+"&keyword="+keyword;
 		}
 		
 		

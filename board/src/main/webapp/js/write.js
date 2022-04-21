@@ -4,5 +4,6 @@
 $(function(){
 	$(".btn-warning").click(function(){
 		location.href = "/qList.do"
+		$("#actionForm").submit();
 ;	})
 })
